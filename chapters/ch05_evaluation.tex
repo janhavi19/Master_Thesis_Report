@@ -4,4 +4,38 @@
     \chapter{Evaluation}
 
     Implementation and measurements.
+    Autoencoder anomaly
+    We will divide the data into two parts: positively labeled and negatively labeled
+    The negatively labeled data is treated as a normal state of the process; A normal state is when the process is relentless
+    We will ignore the positively labeled data, and train an Autoencoder on only negatively labeled data
+    This Autoencoder has now learned the features of the normal process
+    A well-trained Autoencoder will predict any new data that is coming from the normal state of the process (as it will have the same pattern or distribution)
+    Therefore, the reconstruction error will be small
+    However, if we try to reconstruct data from a rare-event, the Autoencoder will struggle
+    This will make the reconstruction error high during the rare-event
+    We can catch such high reconstruction errors and label them as a rare-event prediction
+    This procedure is similar to anomaly detection methods
+    
+    
+    
+    In addition to the benefits of each technique and the insight into the
+    nature of the data which the study of these methods gives us, we also identify
+    several fundamental limitations of the techniques which have been presented.
+    Smoothing of the spectrogram using spatial filtering techniques cannot
+    guarantee that two close tracks have not been merged. It can also cause
+    instances where a detected track has been shifted from the true location
+    through the use of such a filter. These problems carry over to methods
+    employing some form of resolution reduction as a preprocessing stage.
+    Di Martino et al. describe problems which follow from using multiple
+    hypothesis testing methods [27], the first being the “number of possible
+    solutions which grows up when the search depth increases” and therefore
+    “thresholding during the search is necessary in order to avoid the combinatory explosion”. Also that “the decision process is local and so very sensitive
+    to initialisation”.
+    Thresholding and likelihood estimates are statistically powerful and simple methods. However, when the SNR of a spectrogram is low the probability
+    density functions overlap considerably. Consequently, a low threshold value
+    will result in a high true positive rate but will also detect many false positives. Conversely, if the threshold value is set to a low value the resulting
+    detection will contain few false positives but false negatives start to be the drawback. Another drawback of these techniques is the constant variation of
+    the noise distribution present in real world noise environments. This problem
+    then lends itself to machine learning techniques which are adaptive to the
+    environment.
 \end{document}

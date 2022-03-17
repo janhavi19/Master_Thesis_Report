@@ -2,34 +2,39 @@
 
 \begin{document}
     \chapter{Introduction}
+In the automobile industry Artificial intelligence has become an essential tool for improvement in production and manufacturing processes as well as the built in functionalities of the vehicle. Machine learning can help in providing vehicle maintenance related recommendations which can detect abnormal functions at early stage and ensure safety of the driver. The maintenance model supported by the current vehicle is static scheduled method that is, there is a fixed time at which a vehicle is checked for problems. Instead a predictive model based on the data points collected from manufacturing, service providers and the vehicle running on road can be used. The data collected is usually from sensors that play extensive role in capturing, visualizing and storing the variables of processes mentioned above.
 
-    \lipsum[1-5]
+The problems mentioned above can be broken down to detecting the abnormal behavior in the vehicle functionalities using the data collected from sensors. To detect the abnormal behavior data points that do not belong to defined normal behavior have to be selected. This becomes difficult as normal behavior is evolving in nature. According to survey by \cite{chandola2009anomaly} there are many challenges that are faced when detecting anomalies in industrial data. Firstly, the boundary between normal and anomalous behavior is continuous. Hence many a times the assignment of the data points that lie near the boundary can be falsely assigned. Second, the data collected is from the sensors which implies that the data will contain noise. Often it is difficult to differentiate the outliers from the noise in such situations. Another issue is anomaly detection needs a problem specific definition which cannot be generalized. Biggest challenge being that often the data is not labeled as it can be unavailable or expensive to acquire. Thus to solve the anomaly detection a problem specific solution based on the nature of data and availability of labels is used. Different techniques such as statistical methods, machine learning, spectral theory can be applied based on the problem definition to detect outliers. 
+
+To monitor the process data is collected at specific time intervals from the sensors. This implies that the data is in form of time series. To detect the anomalous behavior points or patterns that do not follow the normal area have to be identified. There is no exact notion on to what can be called as anomaly because the sensor behavior cannot be fixed. Thus all specific applications that are based on machine learning are built. As mentioned above the labels are not available hence mostly unsupervised methods are applied. The time series in its crude form from the sensors contains redundant information and noise which might not be relevant to train a model. Therefore the data is subjected to preprocessing such as filtering and feature extraction. 
+
+Recent studies of fault diagnosis have demonstrated that identifying features that convey fault information are crucial for detecting abnormalities in the process. Commonly, feature extraction methods involve identifying a fixed set of features from the data based on domain. These features are normally based on time, frequency, or time-frequency measurements. Signal amplitude values that calculate time-domain features. These features are easy to obtain and assume the signal to be stationary. This is one of the disadvantages of the method. Time series are often converted to the frequency domain which enables easy identification of the oscillations in the series and their amplitudes and phases. The disadvantage of this method is extracted features can be dependent on each other and the method is computationally heavy. Therefore a automatic way of identifying these features is required which can be done with help of deep-learning methods.
+
+Through this work, we are trying to explore different approaches and libraries present to extract the relevant features from the sensor automatically to identify the abnormalities in data efficiently.
+  
     \section{Motivation}
-    \subsection{...}
-
-    \lipsum[6-10]
-
-    \subsection{...}
-
+     
+ To assure the safety of the passenger, one of the major elements which need special focus is the proper closing of is door. In many researches the analysis of this problem is done using the sound of the door closing. But in order to correctly measure sound without any noise interfering with the data collection is a tedious task. To avoid this problem accelerometers can be used to calculate the maximum velocity at which the door closes properly. Analysis of this data is required in during manufacturing to assure the quality of produced product and also for daily usage of car as there can be some wear and tare over time. This process not only assures the safety of the passenger but acts as a monitor to usage and saves maintenance cost. In manufacturing it acts as monitoring agent to assure quality of production and repeatability.
+   
+    
+    
 
     \section{Challenges and Difficulties}
-    \subsection{...}
+This section mentions some of the challenges in feature extraction of time series data. It is difficult to select an appropriate set of features for given data set. Following problems are faced when extracting relevant set \cite{herff2019extracting}:
+\begin{itemize}
+	\item Unifying method missing: which methods are yet to be explored out of methods present to create a relevant set of features
+	\item Variety of feature sets: classification task demands a different set of features which is not fixed for every method
+	\item Large feature space: There is no standard feature set from which a subset is selected for the further task
 
-    \lipsum[11-15]
-
-    \subsection{...}
-
-    \subsection{...}
-
+\end{itemize}
 
 
     \section{Problem Statement}
-    \subsection{...}
+    Feature extraction is done to enhance the representation of the dataset by additional descriptive variables. These variables are expected to increase the accuracy of the predictive models. Autoregressive models and transformation methods like Fast Fourier Transform (FFT) \cite{murugappan2013human} or Discrete Wavelet Transform (DWT) \cite{saravanan2010incipient} are the most commonly used methods for feature extraction of time series data. Wherein the physical attributes are extracted as additional attributes of data. These methods use handcrafted features and need manual computation. To automate this process, libraries like tsFresh \cite{christ2018time} have been built. The limitation of these methods is that the complexity increases with the dimension of the data and also many redundant features are created. Complex time series data which is used in this project is not all that expressive.  Detecting faults using one particular feature is not possible. From previous analysis of the data, manual selection of physical features is required to classify the signals. Thus the first method is applied to extract features like statistical, temporal, FFT from the raw signals and it needs manual calculations and interpretation. Further experimentation to identify the number of features to be selected according to the importance and data balancing will be done. One of the issues with this method is that creating important features with great predictive power for the problem are ignored. 
+    
+    Deep-learning methods such as Auto-encoders, Convolution neural network (CNNs), Echo state network (ESN) and Long Short-Term Memory (LSTM) have been used to extract features from sensor  signals \cite{supratak2014feature}. The problem while using such deep-learning methods directly for feature extraction of comfort door dataset is that, it is complex and does not have many samples to train the model. Therefore in such a case transfer learning method can be employed which enables the reusability of the existing models, along with its parameters. First suitable models for transfer learning will be selected. Selected models will be modified and experiments will be conducted to look for suitable architecture for training comfort door dataset. Both methods will be validated on open-source data. Comparative evaluation of the two models implemented will be done to identify which model is suitable for feature extraction of the comfort door dataset based on increasing the classification task accuracy.
+    
+    
 
-    \lipsum[21-30]
 
-    \subsection{...}
-
-
-    \subsection{...}
 \end{document}
