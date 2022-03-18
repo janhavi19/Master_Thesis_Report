@@ -55,7 +55,7 @@
   
   
   
-  
+ \subsection{Anomaly detection } 
   
   
   
@@ -115,8 +115,15 @@
       	\caption{Spectrogram plot example \cite{spectrogram}}
       	\label{l3}
       \end{figure}
+    Consider we have a signal x of length N. If we create consecutive segments of x having length of m where $m<<N $ and $X \in R^{m \times(N-m+1)}$ are the  consecutive columns of the matrix. That is, $ [x[0], x[1], . . . , x[m - 1]]^T$ is the first column $[x[1], x[2], . . . , x[m]]^T$ is second and so on. The rows and colums of this matrix are indexed by time. As we can observe that matrix X is repetitive representation of x.  
+     So the spectrogram of signal is calculated by applying DFT to the columns of $X$  and obtaining a matrix $\hat{X}$. Therefore,
+     \begin{gather}
+     \hat{X} = \bar{F}X\\
+     X = \frac{1}{m} F \hat{X}
+     \end{gather}
     
-    
+ In the matrix  $\hat{X}$ columns are indexed by time and rows by frequency. So each value is representation of a point in frequency and time.  $\hat{X}$ is invertible due to the transformations performed above. The information in this matrix is also highly redundant. The matrix is spectrogram and can be visualized with help of a plot.
+
     
 
     \subsection{Deep-learning based methods }
@@ -243,8 +250,8 @@ There are various implementation available for feature extraction using this met
     For this project the transfer-learning is done by using spectrogram as input because the comfort door data is a complex industrial data.
     
     \subsection{Transfer-learning models for images}
-    \subsubsection{ImageNet}
- 
+   
+   
     \subsubsection{VGG}
     As it can be visualized in the figure \ref{l05} this network uses a simple design by stacking 3×3 convolutional layers in depths of increasing magnitude. This network uses max pooling to reduce volume size. Two fully-connected layers, each with 4,096 nodes are then followed by a softmax classifier \cite{simonyan2014very}. 
     According to findings of \cite{simonyan2014very} in 2019 the network was too deep hence hard to train. Thus to make the process of training easier the concept of pre-training is used. In this process step by step training was output of smaller networks was fed to larger as initial step and so on so forth. 
@@ -263,7 +270,24 @@ There are various implementation available for feature extraction using this met
     	\item In terms of bandwidth the weights of network are very high.
     \end{enumerate}
     
+ \subsubsection{Resnet}
+ With the increase in depth of layers the training becomes a tedious task as seen in section above. Also with the depth there the networks face vanishing gradient problem a problem. As a result the performance gets saturated along the depth. Therefore to solve this problem Resnet provides a identity shortcut connection that is, it skips one or more layers as can be seen in figure \ref{ll}. 
+      \begin{figure}[h]
+      	\centering
+      	\includegraphics[width=0.5\linewidth]{images/resd.png}
+      	\caption{Residual learning: a building block \cite{he2016deep}}
+      	\label{ll}	
+      \end{figure}
+     
+            
+The advantage of using the skip layer is if a layer affects the performance of the network it is skipped. The basic idea behind the skip layer is that it is easier to learn the value of $F(x)$  to be zero so it acts like identity function rather than learning the identity function. So this block is also known as the identity block.
+Another element of the residual network is convolution block.  These blocks help in reshaping the output from the first layer to the third layer. Both of these components of Resnet help it in gaining high accuracy and optimization level. 
 
-    
-   
+       \begin{figure}[h]
+       	\centering
+       	\includegraphics[width=0.5\linewidth]{images/rs.png}
+       	\caption{Resnet architecture \cite{inproceedings}}
+       	\label{ll1}	
+       \end{figure}
+
 \end{document}
