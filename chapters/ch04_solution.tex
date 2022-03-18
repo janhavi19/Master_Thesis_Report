@@ -4,14 +4,14 @@
     \chapter{Solution}
 
    \section{Hand crafted feature extraction}  
-   First approach to analyze and explore the domain knowledge of the raw signal from accelerometer is calculating temporal, spectral and statistical aspects of the data. As discussed in chapter 3 domain specific knowledge can be extracted from time-series data to analyze it and used as input to machine learning algorithms as raw signal cannot be used directly. Along with the calculated features we have prior information that has been extracted from the signal that is, penetration and maximum velocity. The dataset contains three signals acceleration, velocity and position that are passed to feature extractor which extracts fixed set of features. Figure \ref{n0} shows example of set of features that have been extracted.
+   First approach to analyze and explore the domain knowledge of the raw signal from accelerometer is calculating temporal, spectral and statistical aspects of the data. As discussed in chapter 3 domain specific knowledge can be extracted from time-series data to analyze it and used as input to machine learning algorithms as raw signal cannot be used directly. Along with the calculated features we have prior information that has been extracted from the signal that is, penetration and maximum velocity. The dataset contains three signals acceleration, velocity and position that are passed to feature extractor which extracts fixed set of features.
    
-   \begin{figure}[h]
-   	\centering
-   	\includegraphics[width=1\linewidth]{images/featable.png}
-   	\caption{Handcrafted features }
-   	\label{n0}
-   \end{figure}
+      \begin{figure}
+      	\centering
+      	\includegraphics[width=1.2\linewidth]{images/hcta.png}
+      	\caption{Process of extracting features from time-series data \cite{christ2016distributed}}
+      	\label{n0}
+      \end{figure}
    
    \begin{table}[h]
    	\centering
@@ -20,14 +20,13 @@
    		Type    & Features                                                                                                                                                                      \\ \hline
    		Statistical & \begin{tabular}[c]{@{}l@{}}Minimum, Maximum, Median, Mean absolute deviation, \\ Median absolute deviation, \\ Root mean square, Standard deviation, \\ Variance\end{tabular} \\ \hline
    		Temporal    & \begin{tabular}[c]{@{}l@{}}Mean absolute differences, Mean differences, \\ Median differences, Median absolute differences,\\  Entropy\end{tabular}                           \\ \hline
-   		Spectral    & \begin{tabular}[c]{@{}l@{}}FFT mean coefficient, Minimum frequency, \\ Maximum frequency, Median frequency, \\ Fundamental frequency\end{tabular}                             \\ \hline
+   		Spectral    & \begin{tabular}[c]{@{}l@{}} Minimum frequency, Maximum frequency,  \\Median frequency, Fundamental frequency\end{tabular}                             \\ \hline
    	\end{tabular}
    	\caption{Fixed set of hand crafted features}
    	\label{t1}
    \end{table}
    
-   
-   
+
    The extractor function returns in total 54 features for each car door instance. Table \ref{t1} gives the overview of features calculated for each signal. The dimensionality of the feature vector obtained for each signal is reduced by removing the redundant features and selecting relevant ones by use of Random forest algorithm. This information is passed to supervised machine learning algorithm for classification.
    
    \section{Autoencoder for anomaly detection}   
@@ -39,19 +38,18 @@
     	\caption{Algorithm for anomaly detection \cite{oh2018residual} }
     	\label{nv0}
     \end{figure}
+    
+     \begin{figure}[h]
+     	\centering
+     	\includegraphics[width=0.75\linewidth]{images/rsd.png}
+     	\caption{Algorithm for anomaly detection \cite{oh2018residual} }
+     	\label{n00}
+     \end{figure}
    
    Detailed discussion on general structure of autoencoder is done in chapter 3 section $3.1.3$. The model is based on low-dimensional latent spaces which have high-level abstract features. Generating models such as interpretation or interpolation are not needed \cite{oh2018residual}. We do not require prior knowledge of latent variables in order to identify anomalies or outliers. Therefore as prior knowledge is not available general autoencoder is suitable for the problem.
    
-   The network has same number of inputs and outputs. The goal of this network is to minimize the reconstruction error between the decoded signal and the original. The problem now can be re-framed as regression rather than classification thus mean squared error is suitable for the problem to be solved. 
+   The network has same number of inputs and outputs. The goal of this network is to minimize the reconstruction error between the decoded signal and the original. The problem now can be re-framed as regression rather than classification thus mean squared error is suitable for the problem to be solved.     
    
-   
-   
-    \begin{figure}[h]
-    	\centering
-    	\includegraphics[width=0.75\linewidth]{images/rsd.png}
-    	\caption{Algorithm for anomaly detection \cite{oh2018residual} }
-    	\label{n00}
-    \end{figure}
     
     During compression and expansion, the auto-encoder minimizes the loss of information. Although the decoder restores the high-frequency components to their maximum, the loss of the high-frequency components occurs during the compression process of the encoder. Signals are sampled for each element and reconstructed with the goal of reducing the average difference between input and output signals. The reconstructed signal is not equivalent to the original signal.Instead of focusing on if the input is normal or abnormal the reconstruction error is considered. The algorithm learns higher abstraction of data because of dimension reduction.
     
@@ -59,7 +57,10 @@
     
   
    \section{Transfer learning with raw signal data}
+   z
    
+   as'
+   as
 
    
    
@@ -69,12 +70,16 @@
    \section{Transfer learning with spectrogram}   
   There is a significant work done to designing networks to classify and extracting features from spectrogram. Finding a suitable deep-learning model when we have low instances of data is difficult. Therefore transfer learning is helpful solving this problem. Various popular networks architectures such as VGG and Resnet have been used to extract features from spectogram data. For this project VGG is used. 
   
-  VGG which is a image classification model and has no relation to the temporal domain knowledge in its design. Also as discussed earlier a clear definition to anomaly is missing. 
+  VGG which is a image classification model and has no relation to the temporal domain knowledge in its design. Also as discussed earlier a clear definition to anomaly is missing. Even with these issues VGG is suitable for this problem because, not considering the domain knowledge minimizes the assumptions that are done with respect to the specific domain. Deep learning models are known to be perming better if the feature space is not constrained with domain knowledge. Rather than make assumptions about the type of signal or problem, VGGs combine small-context representations all hierarchically, so that any structure can be learned \cite{vgg}. 
+  
+  The steps that are followed for use of transfer learning from spectrogram are as follows:
+  \begin{enumerate}
+  	\item First image is preprocessing is done where the image is rescaled and converted to image array. Also the array is normalize to values $0$ to $1$.
+
+  	\item Next step is to load VGG model with pre-trained weights for imgenet dataset 
+  \end{enumerate}
   
   
   
-  Audio CNNs can be designed considering domain knowledge or not (for further info, see this article). And, without any doubt, spectrogram-based VGGs utilize no audio domain knowledge for their design. What’s good about that?
-  By means of not considering any domain knowledge during their design, one minimizes the assumptions the model does w.r.t. the problem. This might be beneficial, for example, if one is not certain in how to approach the task.
-  Remember that part of the deep learning game is to allow the architectures to freely discover features, what leads to very successful models. If we specifically design a model to efficiently learn timbral or temporal features, we might inquire the risk of restricting too much the solution space.
-  Instead, VGGs are designed to make minimal assumptions over the nature of the signal or problem — so that any structure can be learnt via hierarchically combining small-context representations. Consequently, VGGs inquire the risk of being super-flexible function approximators (as opposed to be regularized models). That’s why people use VGGs, because in some cases this flexibility can be useful! 
+
 \end{document}
