@@ -42,7 +42,9 @@
       \end{figure}
      
      \subsection{Domain specific}
-     
+     Traditionally algorithms like 1-Nearest Neighbor algorithm is used in supervised classification environment \cite{bagnall2012transformation}. Most of the state of art machine learning techniques can be applied this problem when we conver the problem to feature space. 
+    Convolution neural network have been gaining popularity in classification. Many variations of it are applied for this problem for example \cite{wang2017time}. 
+     Inspired by natural language processing popular network such as AlexNet \cite{alom2018history} is applied for time series classification.
      
       \subsection{Image transforms}
       Instead of direct use of raw signal as input to the deep learning classifiers the signals can be encoded into two dimensional format. Many different approaches have been used to analyse and convert the signal in image format one of the poular is recurrence plots that help to analyse the next time step as can be seen in the implementation of \cite{thanaraj2020implementation}. Other types of image representations that have been reaserched are Gramian fields and  Markov transition fields \cite{wang2015imaging}.
@@ -52,11 +54,9 @@
 
    \subsection{Transfer learning}
   
-  
-  
-  
- \subsection{Anomaly detection } 
-  
+  The major application for transfer learning model in time series data is done on medical dataset for example to detect abnormalities in ECG data \cite{o2021deep}. Major of the application transform  the signals into different image formats such as spectrograms due to many standard pretrained architectures exists for image data. For example Resnet \cite{ouyang2017audio} applied ot audio spectrograms and VGG \cite{russo2019classification} ECG dataset. 
+  Most of studies present are for audio, medical and motion detection field. There are very few application that are done for acceleration signal data. Bench marked architectures are present for ECG data classification for example \cite{strodthoff2020deep}.  Similar to this \cite{yosinski2014transferable} provides a domain specific neural network designed for time series data.
+
   
   
     
@@ -96,7 +96,12 @@
     f(x) = \frac{a_0}{2}+\sum_{n=1}^{\infty}(a_ncos(\frac{2\pi n}{T}x)+b_nsin(\frac{2\pi n}{T}x)
     \label{e1}
     \end{equation}
-    \textbf{Missing annotations}
+    
+      \begin{figure}[h]
+      	\centering
+      	\includegraphics[width=0.75\linewidth]{images/fse.png}
+    
+      \end{figure}
     Any periodic time-series can be represented as sum of sinusoidal components which is given by the equation \ref{e1}. Time series is transformed into Fourier series by measuring every possible cycle and returning the amplitude, offset and rotational speed for every detected cycle. One of commonly used methods to achieve the transformations for real world signals is Fast Fourier transform (FFT). It is a optimized algorithm for obtaining Discrete fourier transform. A signal's frequency components are derived from sampled data over a period of time. Each component of a signal is a single sinusoidal oscillation with its own amplitude and phase.
     Figure \ref{l2} shows a example of transformation. 
     \begin{figure}[h]

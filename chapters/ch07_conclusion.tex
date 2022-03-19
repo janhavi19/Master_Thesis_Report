@@ -4,17 +4,33 @@
     \chapter{Conclusions}
 Many aspects of the real world data are indexed by time, thus analyzing the time series data has become a essential research problem. For getting a better understanding of the real world data first and most relevant approach is exploring the domain knowledge. Problem with this method is that it cannot be generalized and requires relevant skill set in the domain. Hence unsupervised algorithms were applied to solve this problem. This work focuses on to exploring methods that can be applied for feature extraction of the real world complex industrial dataset.
 
+To understand the complex data, domain-specific knowledge such as temporal, spectral, and statistical is first explored. As observed, prior domain knowledge highly influences the classification task; therefore, to automate the process, state-of-the-art supervised and unsupervised learning algorithms have been surveyed to identify  suitable approaches. First unsupervised approach applied to the problem is reconstruction-based anomaly detection. This method uses reconstruction error as a threshold to differentiate anomalous data from normal. Due to the lower number of instances and highly imbalanced data, the deep learning algorithm fails to detect the anomaly. Important observation made in experimentation it is difficult to differentiate between positive and negative instances as they are very similar. 
+To solve the issues in this method a transfer learning approach was implemented based on \cite{fawaz2018transfer}. This technique also fails to identify negative instances, possible reason being source and target domains are not similar enough.
+
+Thus to increase the features space image transformation is applied that is by converting raw signal to spectrograms. Computer vision based transfer-learning method is applied to the problem. Due to the complexity of training VGG model and some challenges that are faced by spectrogram transfer leaning using CNN the algorithm does not identify negative instances.
+
+To remove repetitive data and retain important information from spectrogram autoencoder based feature extraction technique is applied to data. This method also fails to contribute to classification of the feature set.
+
+To conclude due to highly imbalanced and complex data domain knowledge works better a detecting abnormal data after applying some data balancing methods. The deep-leaning models need large amount of data for training efficiency.
+ 
+
 
 
     \section{Contributions}
     \begin{itemize}
-    \item 	
+    \item Survey of supervised and unsupervised state of the art feature extraction algorithms for time series data
+    \item Data analysis of a complex industrial dataset.
+    \item Implementation and evaluation of domain based feature extraction method to analyze time-series data.
+    \item Implementation and evaluation of reconstruction error based anomaly detection method.
+    \item Implementation of method that uses features from both time and frequency domain that is, using spectrograms.
+    \item Feature extraction using of state of art transfer learning technique.
     \end{itemize}
     
     
     \section{Lessons learned}
     \begin{itemize}
     	\item The performance is affected by imbalance in data.
+    	\item The dataset is built upon just single acceleration signal and the features that are extracted from it. Thus the domain knowledge is also limited.
     	\item Domain specific knowledge plays important role in performance of model.
     	\item Spectrogram approach is not suitable for industrial dataset in use which can be analyses from the results of both transfer learning and autoencoder based feature extraction model.
     	\item Based on the reconstruction error of anomaly detection module the features of the data that differentiate abnormal behavior from normal are not that prominent.
@@ -22,4 +38,10 @@ Many aspects of the real world data are indexed by time, thus analyzing the time
     \end{itemize}
 
     \section{Future work}
+    The future scope of this work is as follows:
+    \begin{itemize}
+    	\item As we have observed negative instance detection is highly dependent on penetration a maximum velocity which are marked by point changes in the position and velocity signal respectively. Thus change point algorithms can be applied for feature extraction.
+    	\item Convolution neural networks along with relevant trainable filters can be used to extract the temporal features of time series data. 
+    
+    \end{itemize}
 \end{document}
