@@ -1,41 +1,90 @@
 %!TEX root = ../report.tex
 
 \begin{document}
-    \chapter{Evaluation}
+    \chapter{Hand crafted feature extraction}
+This chapter discusses the experiments conducted based on methods present in chapter 5 section 5.1. 
+ 
 
-    Implementation and measurements.
-    Autoencoder anomaly
-    We will divide the data into two parts: positively labeled and negatively labeled
-    The negatively labeled data is treated as a normal state of the process; A normal state is when the process is relentless
-    We will ignore the positively labeled data, and train an Autoencoder on only negatively labeled data
-    This Autoencoder has now learned the features of the normal process
-    A well-trained Autoencoder will predict any new data that is coming from the normal state of the process (as it will have the same pattern or distribution)
-    Therefore, the reconstruction error will be small
-    However, if we try to reconstruct data from a rare-event, the Autoencoder will struggle
-    This will make the reconstruction error high during the rare-event
-    We can catch such high reconstruction errors and label them as a rare-event prediction
-    This procedure is similar to anomaly detection methods
+\subsection{Objective}
+Objective of this experiment is to extract a fixed set of features from each of the signal acceleration, velocity and position. From this fixed set relevant features will be selected and classified using state of art machine learning algorithms.
+
+\section{Experiment details}
+As the data is imbalanced therefore to perform data balancing following set of data division is performed. Following table describes data balancing experiments performed.
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|}
+	\hline
+	Data division & Details                                                                      & Positive samples & Negative samples \\ \hline
+	D1            & \begin{tabular}[c]{@{}l@{}}The data is divided in 1:1 \\ ratio.\end{tabular} & 103              & 103              \\ \hline
+	D2            & The data is slightly biased 2:1                                              & 206              & 103              \\ \hline
+	
+\end{tabular}
+	\caption{Data division for balancing}
+\end{table}
     
-    
-    
-    In addition to the benefits of each technique and the insight into the
-    nature of the data which the study of these methods gives us, we also identify
-    several fundamental limitations of the techniques which have been presented.
-    Smoothing of the spectrogram using spatial filtering techniques cannot
-    guarantee that two close tracks have not been merged. It can also cause
-    instances where a detected track has been shifted from the true location
-    through the use of such a filter. These problems carry over to methods
-    employing some form of resolution reduction as a preprocessing stage.
-    Di Martino et al. describe problems which follow from using multiple
-    hypothesis testing methods [27], the first being the “number of possible
-    solutions which grows up when the search depth increases” and therefore
-    “thresholding during the search is necessary in order to avoid the combinatory explosion”. Also that “the decision process is local and so very sensitive
-    to initialisation”.
-    Thresholding and likelihood estimates are statistically powerful and simple methods. However, when the SNR of a spectrogram is low the probability
-    density functions overlap considerably. Consequently, a low threshold value
-    will result in a high true positive rate but will also detect many false positives. Conversely, if the threshold value is set to a low value the resulting
-    detection will contain few false positives but false negatives start to be the drawback. Another drawback of these techniques is the constant variation of
-    the noise distribution present in real world noise environments. This problem
-    then lends itself to machine learning techniques which are adaptive to the
-    environment.
+ The number of features selected varies as follows:
+ \begin{itemize}
+ \item First feature set is defined as  feature selection based on relevance let us call it as F1. 
+ \item To analyze the effect of the prior domain knowledge features, set of two is selected that is penetration and maximum velocity. Let us call this F2.
+ \end{itemize} 
+ 
+ \section{Results} 
+ 
+ The relevance of the features can be visualized as follows:
+   \begin{figure}[h]
+   	\centering
+   	\includegraphics[width=0.62\linewidth]{images/relvance.png}
+   	\caption{Relevance of features}
+   	\label{n5}
+   \end{figure}
+Results related to data division D1 and D2 category are presented as in figure \ref{r1} and \ref{r2}:  
+      \begin{figure}[b]
+      	\centering
+      	\includegraphics[width=1\linewidth]{images/r1.png}
+      	\caption{Results for D1 category}
+      	\label{r1}
+      
+      \end{figure}
+         \begin{figure}[b]
+         	\centering
+         	\includegraphics[width=1\linewidth]{images/r2.png}
+         	\caption{Results for D2 category}
+         	\label{r2}
+         \end{figure}
+  Parameters related to the Testing  data:
+  \begin{itemize}
+  	\item Positive samples: 698
+  	
+  \item	Negative Samples:38
+  	
+  \end{itemize}
+ 
+  \section{Discussions}      
+  
+  As observed the algorithm performs better for  when the prior knowledge is used that is the F2 category. Both the categories show no significant difference in number of negative samples obtained by the algorithms. This shows that the prior domain knowledge has high influence on negative sample detection. 
+
+  \chapter{Autoencoder for anomaly detection}
+  This chapter discusses the experiments conducted based on methods present in chapter 5 section 5.2. 
+  \section{Objective}
+  Aim of this experiment is to use reconstruction error as base to classify the data into normal and abnormal. This experiment does not consider the labels assigned that is, its a unsupervised learning algorithm. The details of architecture have been discussed in section 5.2. 
+  This experiment is conducted on each type of signal to analyze which signal has better features that encode the anomaly.
+  
+  \section{Results}  
+  
+  \subsection{Trained with positive data}
+   Parameters related to the  data distribution:
+  \begin{table}[h]
+  	\begin{tabular}{|l|l|l|}
+  		\hline
+  		Data      & Positive samples & Negative samples \\ \hline
+  		Train set & 2311             & 0                \\ \hline
+  		Test set  & 1848             & 112              \\ \hline
+  	\end{tabular}
+  \end{table}
+   	
+   	
+   	
+ 
+  
+     \subsection{Trained with combination of positive  and negative data}
 \end{document}
