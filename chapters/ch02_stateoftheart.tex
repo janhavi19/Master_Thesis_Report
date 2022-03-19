@@ -42,7 +42,7 @@
       \end{figure}
      
      \subsection{Domain specific}
-     Traditionally algorithms like 1-Nearest Neighbor algorithm is used in supervised classification environment \cite{bagnall2012transformation}. Most of the state of art machine learning techniques can be applied this problem when we conver the problem to feature space. 
+     Traditionally algorithms like 1-Nearest Neighbor algorithm is used in supervised classification environment \cite{bagnall2012transformation}. Most of the state of art machine learning techniques can be applied to this problem when we convert the problem to feature space. 
     Convolution neural network have been gaining popularity in classification. Many variations of it are applied for this problem for example \cite{wang2017time}. 
      Inspired by natural language processing popular network such as AlexNet \cite{alom2018history} is applied for time series classification.
      
@@ -55,7 +55,7 @@
    \subsection{Transfer learning}
   
   The major application for transfer learning model in time series data is done on medical dataset for example to detect abnormalities in ECG data \cite{o2021deep}. Major of the application transform  the signals into different image formats such as spectrograms due to many standard pretrained architectures exists for image data. For example Resnet \cite{ouyang2017audio} applied ot audio spectrograms and VGG \cite{russo2019classification} ECG dataset. 
-  Most of studies present are for audio, medical and motion detection field. There are very few application that are done for acceleration signal data. Bench marked architectures are present for ECG data classification for example \cite{strodthoff2020deep}.  Similar to this \cite{yosinski2014transferable} provides a domain specific neural network designed for time series data.
+  Most of studies present are for audio, medical and motion detection field. There are very few application that are done for acceleration signal data. Bench marked architectures are present for ECG data classification for example \cite{strodthoff2020deep}. Similar to this \cite{yosinski2014transferable} provides a domain specific neural network designed for time series data.
 
   
   
@@ -161,7 +161,7 @@ z=\sigma (Wx+b)
 \label{e5}
 \end{equation}
 
-The decoder function can be represented similarly with help of different set of weights and biases and activation function.
+The decoder function can be represented similarly with the help of different set of weights, biases and activation functions.
 \begin{equation}
 x'= \sigma'(W'z+b')
 \label{e6}
@@ -170,24 +170,25 @@ x'= \sigma'(W'z+b')
 The loss function can be written as:
 \begin{equation} 
 L(\mathbf{x}, \hat{\mathbf{x}}) = \mathbf{MSE}(\mathbf{x}, \hat{\mathbf{x}}) = \|  \mathbf{x} - \hat{\mathbf{x}} \| ^2 =  \| \mathbf{x} - \hat{\sigma} \{ \hat{\mathbf{W}} \left[\sigma ( \mathbf{W}\mathbf{x} + \mathbf{B} )\right]  + \hat{\mathbf{B}} \} \| ^2 \end{equation}
-There are various implementation available for feature extraction using this method to encode the features of data instead using hand crafted method \cite{gerazov2018variational}. The deep autoencoders are designed in a fashion to reduce the dimensionality of raw sensor data \cite{ravi2019current} and transform them into feature vector with consized information on data. Variation of implementations can be found in the literature with a aim to find robust representation of data.
+There are various implementations available for feature extraction using this method to encode the features of data instead using handcrafted method \cite{gerazov2018variational}. The deep autoencoders are designed in a fashion to reduce the dimensionality of raw sensor data \cite{ravi2019current} and transform them into feature vector with consized information on data. Variation of implementations can be found in the literature with a aim to find robust representation of data.
+
     \subsubsection{Long Short Term Memory networks(LSTM)}
-    Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used in the field of deep learning. Unlike standard feedforward neural networks (like CNN), LSTM has feedback connections. Because of the feedback connections, LSTM can not only process single data points (like image) but also a sequence of data points like a sentence or a time series. 
+    Long short-term memory (LSTM) is an artificial recurrent neural network (RNN) architecture used in the field of deep learning. Unlike standard feedforward neural networks (like CNN), LSTM has feedback connections. Because of the feedback connections, LSTM can not only process single data points (like an image) but also a sequence of data points like a sentence or a time series. 
     
     A common LSTM unit is composed of a cell, an input gate, an output gate and a forget gate. The cell remembers values over arbitrary time intervals and the three gates regulate the flow of information into and out of the cell.
     In the image below, the $C_t $ is the cell state and it runs down the information through the entire chain. On this, the information is removed or added by Forget gate or Input gate. 
     \begin{enumerate}
-    	\item The Forget gate: The first step in LSTM is to decide what information to remove from the cell state. This decision is made by a sigmoid layer called the forget gate layer. It looks at $h{t-1}$  and xt and outputs a number between $0$ and $1$  for each number in the cell state $C_{t-1} $ . A $1$ represents completely keep this while a $0$  represents completely get rid of this. The output of the forget gate is calculated using the following equation: 
+    	\item The Forget gate: The first step in LSTM is to decide what information to remove from the cell state. This decision is made by a sigmoid layer called the forget gate layer. It looks at $h{t-1}$  and xt and outputs a number between $0$ and $1$  for each number in the cell state $C_{t-1} $ . A $1$ represents completely keeping this while a $0$  represents completely get rid of this. The output of the forget gate is calculated using the following equation: 
     	 \begin{equation}
     	 f_t=\sigma(W_f.[h_{t-1},x_{t-1}]+b_f)
     	 \end{equation}
-    	 \item Input gate: The next step is to decide what new information we are going to store in the cell state. For this step, first the sigmoid layer decides which values to update. Then a $tanh$ layer creates a vector of new values that are to be added in the cell state. Then these two are combined to create an update to the state. Mathematically it represented by: 
+    	 \item Input gate: The next step is to decide what new information we are going to store in the cell state. First the sigmoid layer decides which values to update. Then a $tanh$ layer creates a vector of new values that are to be added in the cell state. Then these two are combined to create an update to the state. Mathematically it is represented by: 
     	 \begin{gather}
     	 i_t=\sigma (W_i.[h_{t-1},x_{t-1}]+b_i)	\\		
     	 C_t=tanh(Wc.[h_{t-1},x_{t-1}]+b_c)
     	 \end{gather}
     	 The updated cell state is calculated by: $C_t=f_t*C_{t-1}+i_t*\bar{C}_t$
-    	 \item Output gate: In the next step, the output is calculated. This will be a filtered version of the cell state. First, a sigmoid layer is used which decides what parts of the cell state are going to output. Then, the cell state is put through $tanh$ (to push the values to be between $-1$ and $1$ ) and multiply it by the output of the sigmoid gate, so that only the decided parts are output. Mathematically it is represented as: 
+    	 \item Output gate: In the next step, the output is calculated. This will be a filtered version of the cell state. First, a sigmoid layer is used, which decides what parts of the cell state are going to output. Then, the cell state is put through $tanh$ (to push the values to be between $-1$ and $1$ ) and multiply it by the output of the sigmoid gate, so that only the decided parts are output. Mathematically it is represented as: 
     	  \begin{gather}
     	o_t=\sigma (W_o[h_{t-1},x_{t-1}]+b_o)\\				
     	h_t=o_t*tanh(C_t)
@@ -215,18 +216,18 @@ There are various implementation available for feature extraction using this met
     \subsubsection{CNN}
     A Convolutional Neural Network (ConvNet/CNN) is a Deep Learning algorithm which is most commonly applied to analyse visual imagery. The architecture of a ConvNet is analogous to that of the connectivity pattern of Neurons in the Human Brain and was inspired by the organisation of the Visual Cortex. In humans, Individual neurons respond to stimuli only in a restricted region of the visual field known as the Receptive Field. The receptive fields of different neurons partially overlap such that they cover the entire visual field.
     
-    As compared to multilayer perceptron (fully connected networks in which each neuron in one layer is connected to all neurons in the next layer), CNN takes advantage of the hierarchical pattern in data. They assemble the patterns of increasing complexity using smaller and simpler patterns embossed in their filters. Therefore, on a scale of connectivity and complexity, CNNs are on the lower extreme. CNNs use relatively little pre-processing compared to other image classification algorithms. This means that the network learns to optimise the filters (or kernels) through automated learning, whereas in traditional algorithms these filters are hand-engineered.
+    As compared to a multilayer perceptron (fully connected networks in which each neuron in one layer is connected to all neurons in the next layer), CNN takes advantage of the hierarchical pattern in data. They assemble the patterns of increasing complexity using smaller and simpler patterns embossed in their filters. Therefore, on a scale of connectivity and complexity, CNNs are on the lower extreme. CNNs use relatively little pre-processing compared to other image classification algorithms. This means that the network learns to optimise the filters (or kernels) through automated learning, whereas in traditional algorithms, these filters are hand-engineered.
     
     A CNN consists of the input layer, the hidden layer and the output layer. The hidden layer of a CNN consists of convolution layers, pooling layers and fully connected layers. 
     Input layer: the input layer of a CNN is a tensor of the image with a shape: (number of inputs) x (input height) x (input width) x (input channels).
     Hidden layer: 
     \begin{enumerate}
-    	\item Convolution layer: The element involved in carrying out the convolution operation in the Convolutional Layer is called the Kernel/Filter. The filter slides over the input matrix with a certain Stride Value and at each step a dot product is performed. Filter moves to the right till it parses the complete width. Moving on, it hops down to the beginning (left) of the image with the same Stride Value and repeats the process until the entire image is traversed. This process generates a feature map which is the input to the next layer. In a CNN, multiple convolution layers are present and at each convolution layer, the feature map complexity increases. 
+    	\item Convolution layer: The element involved in carrying out the convolution operation in the Convolutional Layer is called the Kernel/Filter. The filter slides over the input matrix with a certain Stride Value and at each step, a dot product is performed. Filter moves to the right till it parses the complete width. Moving on, it hops down to the beginning (left) of the image with the same Stride Value and repeats the process until the entire image is traversed. This process generates a feature map which is the input to the next layer. In a CNN, multiple convolution layers are present and at each convolution layer, the feature map complexity increases. 
     	\item Pooling layer: Pooling layers reduce the dimensions of data by combining the outputs of neuron clusters at one layer into a single neuron in the next layer. Furthermore, it is useful for extracting dominant features which are rotational and positional invariant, thus maintaining the process of effectively training the model. 
     \end{enumerate}
        
     The Convolutional Layer and the Pooling Layer together form the i-th layer of a Convolutional Neural Network. Depending on the complexities in the images, the number of such layers may be increased for capturing low-level details even further, but at the cost of more computational power. 
-    After going through these layers, the input image is converted into a suitable form for Multi-Level Perceptron (Fully connected layer). The image is flattened into a column vector and  is fed to a feed-forward neural network and backpropagation applied to every iteration of training. Over a series of epochs, the model is able to distinguish between dominating and certain low-level features in images and classify them using the Softmax Classification technique.
+    After going through these layers, the input image is converted into a suitable form for Multi-Level Perceptron (Fully connected layer). The image is flattened into a column vector and  is fed to a feed-forward neural network and backpropagation is applied to every iteration of training. Over a series of epochs, the model is able to distinguish between dominating and certain low-level features in images and classify them using the Softmax Classification technique.
       \begin{figure}[h]
       	\centering
       	\includegraphics[width=1\linewidth]{images/cnn.png}
@@ -235,11 +236,11 @@ There are various implementation available for feature extraction using this met
       \end{figure}
     
     \subsection{Transfer-learning}
-    A transfer learning method is a machine learning approach that reuses a model developed for one task as a starting point for a second model. Usage of pre-trained models is widely used as they can be used as a start point for solving computer vision or natural language processing tasks. The reason is that developing neural network models for these tasks requires significant amount of computation and time resources. There are two ways to apply transfer learning models described as follows:
+    A transfer learning method is a machine learning approach that reuses a model developed for one task as a starting point for a second model. Usage of pre-trained models is widely used as they can be used as a start point for solving computer vision or natural language processing tasks. The reason is that developing neural network models for these tasks requires a significant amount of computation and time resources. There are two ways to apply transfer learning models described as follows:
     
     \subsubsection{Develop Model Approach}
     \begin{enumerate}
-    	\item First step in this approach is to select predictive model such that is trained with large amount of data. Also there should be some relation between the data we want to implement this model for and the concept for which the model is trained.
+    	\item First step in this approach is to select a predictive model such that it is trained with large amount of data. Also, there should be some relation between the data we want to implement this model for and the concept for which the model is trained.
     	\item After completing the first task, you need to develop an effective model. There must be some feature learning done in the model compared with naive models.
     	\item Modeling the second task of interest can then be based on the model fit on the source task. The model may be used in its entirety or in parts, depending on the modeling method used.
     	\item  In some cases, the model may need to be customized or refined according to the input-output pairs available for the particular problem at hand.
@@ -247,20 +248,20 @@ There are various implementation available for feature extraction using this met
     \subsubsection{Pre-trained Model Approach}
      \begin{enumerate}
      	\item From the available models, a pre-trained model can be selected. There are many sources available from research institutions from where a model can be selected according to the problem requirements.
-     	\item After finding a suitable model it can be used as a starting point for second task. Depending on the task a part of model or the entire model can be used.
+     	\item After finding a suitable model, it can be used as a starting point for the second task. Depending on the task, a part of the model or entire model can be used.
      
      	\item  Lastly, the model may need to be customized or refined according to the input-output pairs available for the particular problem at hand.
      \end{enumerate}
     
-    For this project the transfer-learning is done by using spectrogram as input because the comfort door data is a complex industrial data.
+    For this project, the transfer-learning is done by using spectrogram as input because the comfort door data is complex industrial data.
     
     \subsection{Transfer-learning models for images}
    
    
     \subsubsection{VGG}
-    As it can be visualized in the figure \ref{l05} this network uses a simple design by stacking 3×3 convolutional layers in depths of increasing magnitude. This network uses max pooling to reduce volume size. Two fully-connected layers, each with 4,096 nodes are then followed by a softmax classifier \cite{simonyan2014very}. 
-    According to findings of \cite{simonyan2014very} in 2019 the network was too deep hence hard to train. Thus to make the process of training easier the concept of pre-training is used. In this process step by step training was output of smaller networks was fed to larger as initial step and so on so forth. 
-    Even though the pre traing is a logical step it is a tedious task and requires large computation time.
+    As it can be visualized in the figure \ref{l05} this network uses a simple design by stacking $3\times3$ convolutional layers in depths of increasing magnitude. This network uses max pooling to reduce volume size. Two fully-connected layers, each with 4,096 nodes are then followed by a softmax classifier \cite{simonyan2014very}. 
+    According to findings of \cite{simonyan2014very} in 2019, the network was too deep hence hard to train. Thus to make the process of training easier, the concept of pre-training is used. In this process, step by step training was the output of smaller networks was fed to larger as an initial step and so on so forth. 
+    Even though the pretraining is a logical step, it is a tedious task and requires large computation time.
     
      \begin{figure}[h]
      	\centering
@@ -272,11 +273,11 @@ There are various implementation available for feature extraction using this met
     Disadvantage of using VGG are as follows:
     \begin{enumerate}
     	\item It trains very slowly
-    	\item In terms of bandwidth the weights of network are very high.
+    	\item In terms of bandwidth, the weights of network are very high.
     \end{enumerate}
     
  \subsubsection{Resnet}
- With the increase in depth of layers the training becomes a tedious task as seen in section above. Also with the depth there the networks face vanishing gradient problem a problem. As a result the performance gets saturated along the depth. Therefore to solve this problem Resnet provides a identity shortcut connection that is, it skips one or more layers as can be seen in figure \ref{ll}. 
+ With the increase in depth of layers, the training becomes a tedious task, as seen in the section above. Also, with the depth there, the network faces vanishing gradient problem. As a result, the performance gets saturated along the depth. Therefore to solve this problem, Resnet provides a identity shortcut connection that is, it skips one or more layers, as can be seen in figure \ref{ll}. 
       \begin{figure}[h]
       	\centering
       	\includegraphics[width=0.5\linewidth]{images/resd.png}
@@ -285,8 +286,8 @@ There are various implementation available for feature extraction using this met
       \end{figure}
      
             
-The advantage of using the skip layer is if a layer affects the performance of the network it is skipped. The basic idea behind the skip layer is that it is easier to learn the value of $F(x)$  to be zero so it acts like identity function rather than learning the identity function. So this block is also known as the identity block.
-Another element of the residual network is convolution block.  These blocks help in reshaping the output from the first layer to the third layer. Both of these components of Resnet help it in gaining high accuracy and optimization level. 
+The advantage of using the skip layer is if a layer affects the performance of the network, it is skipped. The basic idea behind the skip layer is that it is easier to learn the value of $F(x)$  to be zero, so it acts like an identity function rather than learning the identity function. So this block is also known as the identity block.
+Another element of the residual network is a convolution block.  These blocks help in reshaping the output from the first layer to the third layer. Both of these components of Resnet help it in gaining high accuracy and optimization level. 
 
        \begin{figure}[h]
        	\centering

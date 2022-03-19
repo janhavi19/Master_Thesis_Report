@@ -5,7 +5,7 @@
    This section is written in reference to previous work from a colleague and the information obtained from the measX company on to the BMW dataset.
 
     \section{Data collection setup}
-    To monitor proper closing of the car door accelerometer is used which is placed on the door with help of a suction mechanism which can be seen in figure \ref{n1}a. The sensor collects acceleration data in three directions, axis of which are marked in the picture as X to be green, Y as blue and Z as red. The data recording is started before the door bumps into the rubber(marked in red in \ref{n1}b) and stopped when door is still. 
+    To monitor proper closing of the car, door accelerometer is used which is placed on the door with help of a suction mechanism which can be seen in figure \ref{n1}a. The sensor collects acceleration data in three directions, axes of which are marked in the picture as X to be green, Y as blue and Z as red. The data recording is started before the door bumps into the rubber(marked in red in \ref{n1}b) and stopped when door is still. 
         \begin{figure}[h]
         	\centering
         	\includegraphics[width=0.9\linewidth]{images/cardoor.png}
@@ -62,7 +62,7 @@
       
       
     \section{Manually selected features}
-    According to the information provided by the company there are two distinct features maximum velocity and penetration which have been used to classify the data. These features can be visualized in figure \ref{n7}. According the previous work use these features have given better results for classification problem.
+    According to the information provided by the company, there are two distinct features, maximum velocity and penetration which have been used to classify the data. These features can be visualized in figure \ref{n7}. According the previous work, use these features have given better results for classification problem.
     
        \begin{figure}[h]
        	\centering
@@ -84,8 +84,8 @@
      
      
     \subsection{Spectrogram}
-    As mentioned in sections above we have instances of acceleration velocity and position signal. The spectrograms are generated for each of this instances and sorted according to car model. The generated graph have been stored in image format for analysis. The idea behind using this method is to gain knowledge of both spectral and temporal features and use it as a aid for classification. 
-    To generate spectrogram for signal was processed using Fourier analysis. The graph is generated using skit-learn library.
+    As mentioned in sections above, we have instances of acceleration velocity and position signal. The spectrograms are generated for each of this instances and sorted according to car model. The generated graphs have been stored in image format for analysis. The idea behind using this method is to gain knowledge of both spectral and temporal features and use it as a aid for classification. 
+    To generate spectrogram for signal, processing using Fourier analysis is carried out. The graph is generated using skit-learn library.
     Example of positive and negative sample spectrogram can be visualized in figure \ref{n9}
     
     \begin{figure}[h]
