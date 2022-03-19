@@ -40,14 +40,14 @@ As the data is imbalanced therefore to perform data balancing following set of d
 Results related to data division D1 and D2 category are presented as in figure \ref{r1} and \ref{r2}:  
       \begin{figure}[b]
       	\centering
-      	\includegraphics[width=1\linewidth]{images/r1.png}
+      	\includegraphics[width=.9\linewidth]{images/r1.png}
       	\caption{Results for D1 category}
       	\label{r1}
       
       \end{figure}
          \begin{figure}[b]
          	\centering
-         	\includegraphics[width=1\linewidth]{images/r2.png}
+         	\includegraphics[width=.9\linewidth]{images/r2.png}
          	\caption{Results for D2 category}
          	\label{r2}
          \end{figure}
@@ -124,7 +124,98 @@ Results related to data division D1 and D2 category are presented as in figure \
    
    \subsection{Objective}
    
-   Objective of this experiment is to use convolution neural network pre-trained with UCR datasets as base model for feature extraction from comfort door acceleration data. 
-   The results 
-       
+   Objective of this experiment is to use convolution neural network pre-trained with UCR datasets as base model for feature extraction from comfort door acceleration data. The model with weight values is available as open source \cite{fawaz2018transfer}.
+   
+   \subsection{Discussion}
+   The results for this experiment were found to be very poor. The accuracy of feature extraction from these weights is $4.09$ percent that mean it cannot even categorize positive data into right classes. The source from which the pretrained model is obtained is not standard. Therefore fine tuning of the architecture can be done but it requires a lot of resources considering the large database of UCR datasets. 
+   
+   This shows that the signals as inputs to the CNN based feature extractors is not viable. Therefore to explore onto what features can be extracted from the raw signals, a image transformation method was adopted.
+   
+    \section{Spectrogram as input}
+    
+    \subsection{Objective}
+    
+    Objective of this experiment is to use VGG network for feature extraction of spectrogram of acceleration, velocity and position signals. And to modifying the end of the network suitable to classification of comfort door dataset. 
+    The detailed description on the process can be found in chapter 5.
+    
+    
+    \subsection{Results}
+    For all the signals following parameters were use:
+    \begin{table}[h]
+    	\centering
+    	\begin{tabular}{|l|l|l|}
+    		\hline
+    		Data      & Positive samples & Negative samples \\ \hline
+    		Train set & 1613             & 103              \\ \hline
+    		Test set  & 766              & 44               \\ \hline
+    	\end{tabular}
+    	\caption{Parameters for VGG model training}
+ 
+    \end{table}
+     \begin{figure}[h]
+     	\centering
+     	\includegraphics[width=1.2\linewidth]{images/rr5.png}
+     	\caption{Reconstruction error distribution}
+     	\label{k}
+     	
+     \end{figure}
+    
+    \subsection{Discussion}
+    As it can be visualized from the plot \ref{k} the accuracy is 94.5 percent. This depicts that 94.5 percent of data is positive which means the network fails to learn the features of spectrogram. The negative data is also categorized as positive. Possible reasons for algorithm to not work might be as follows:
+    \begin{itemize}
+    	\item  Trying to re-purpose a model for a different task than it was originally intended for could yield poor performance due to lack of generalization.
+    	\item The axes of spectrograms do not carry the same meaning. CNNs for images use two-dimensional filters that share weights across the x and y dimensions so both of them should have same meaning.
+    	\item Source and target domains are not similar enough.
+    	\item Discrete events do not separate into layers on a spectrogram: Instead, they all sum together into a distinct whole.
+    	\item Recent studies \cite{pons2017timbre} have shown that single layer convolution network works better in comparison to VGG.
+    \end{itemize}
+   
+   \chapter{Autoencoder as feature extractor}  
+   \section{Objective} 
+   Objective of this implementation is to use Autoencoder as feature extractor for spectrogram data. The aim is to reduce the dimensionality and retain important information from the image. These features can be used as an aid to classification or clustering model. 
+   
+   \section{Results}
+   \subsection{Trained with positive data:T1}
+   \begin{table}[h]
+   	\begin{tabular}{|l|l|l|}
+   		\hline
+   		Data      & Positive samples & Negative samples \\ \hline
+   		Train set & 2311             & 1843             \\ \hline
+   		Test set  & 766              & 120              \\ \hline
+   	\end{tabular}
+   	\caption{Parameters for T1}
+   \end{table}
+       \begin{figure}[h]
+       	\centering
+       	\includegraphics[width=1\linewidth]{images/rr6.png}
+       	\caption{Results for Autoencoder as feature extractor T1}
+       	\label{kk}
+       \end{figure}
+   
+    \subsection{Trained with combination of positive  and negative data: T2}
+   \begin{table}[h]
+   	\begin{tabular}{|l|l|l|}
+   		\hline
+   		Data      & Positive samples & Negative samples \\ \hline
+   		Train set & 1538             & 773              \\ \hline
+   		Test set  & 104              & 37               \\ \hline
+   	\end{tabular}
+   	   	\caption{Parameters for T2}
+   \end{table}
+       \begin{figure}[h]
+       	\centering
+       	\includegraphics[width=1\linewidth]{images/rr8.png}
+       	\caption{Results for Autoencoder as feature extractor T2}
+       	\label{kk}
+       \end{figure}
+   \section{Discussion}
+   As it can be seen from the plots accuracy is low when trained on just positive data in comparison to the model trained with both instances. Even though the accuracy is high for the second case the model cannot identify negative instances.
+     
+   Possible reasons for algorithm to not work might be as follows:
+   \begin{itemize}
+   	\item From the previous findings the features which are present are in velocity and position signals which give better results.
+   	\item Lack of data samples for training 
+   	\item Threshold for a perfect discrimination cannot be decided, because of some overlaps between normal and abnormal data.	
+   \end{itemize}
+   
 \end{document}
