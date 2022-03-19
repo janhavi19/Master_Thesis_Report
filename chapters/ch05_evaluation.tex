@@ -71,7 +71,7 @@ Results related to data division D1 and D2 category are presented as in figure \
   
   \section{Results}  
   
-  \subsection{Trained with positive data}
+  \subsection{Trained with positive data:T1}
    Parameters related to the  data distribution:
   \begin{table}[h]
   	\begin{tabular}{|l|l|l|}
@@ -80,11 +80,51 @@ Results related to data division D1 and D2 category are presented as in figure \
   		Train set & 2311             & 0                \\ \hline
   		Test set  & 1848             & 112              \\ \hline
   	\end{tabular}
+  	\caption{Parameters for T1}
   \end{table}
+   	    \begin{figure}[h]
+   	    	\centering
+   	    	\includegraphics[width=1\linewidth]{images/r3.png}
+   	    	\caption{Results for T1}
+   	    	\label{r3}
+   	    \end{figure}
    	
-   	
-   	
- 
-  
-     \subsection{Trained with combination of positive  and negative data}
+     \subsection{Trained with combination of positive  and negative data: T2}
+     
+       \begin{table}[h]
+       	\begin{tabular}{|l|l|l|}
+       		\hline
+       		Data      & Positive samples & Negative samples \\ \hline
+       		Train set & 1550             & 761              \\ \hline
+       		Test set  & 1848             & 34              \\ \hline
+       	\end{tabular}
+       	\caption{Parameters for T2}
+       \end{table}
+        \begin{figure}[h]
+        	\centering
+        	\includegraphics[width=1\linewidth]{images/r4.png}
+        	\caption{Results for T2}
+        	\label{llll}
+        \end{figure}
+        
+       \begin{figure}[t]
+       	\centering
+       	\includegraphics[width=0.8\linewidth]{images/download.png}
+       	\caption{Reconstruction error distribution}
+       	\label{lll}
+       	
+       \end{figure}
+   \section{Discussions} 
+   As it can be visualized from the \ref{r3} and \ref{lll} even though the accuracy of the experiments for velocity is high it fails to detect abnormal data. The reason behind this could due to the reconstruction error of the anomalies is very close to normal ones. This can be visualized in figure \ref{lll}. Optimal threshold cannot be decided due to this issue as if we increase the threshold most of the normal data will be classified as abnormal. Therefore the threshold is kept very low and it can be observed in the confusion plots that most of abnormal data is been classified as normal.
+   
+   
+   \chapter{Transfer learning}
+   
+   \section{Signal as input}
+   
+   \subsection{Objective}
+   
+   Objective of this experiment is to use convolution neural network pre-trained with UCR datasets as base model for feature extraction from comfort door acceleration data. 
+   The results 
+       
 \end{document}

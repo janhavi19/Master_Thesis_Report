@@ -56,12 +56,7 @@
     In the residual error based anomaly detection algorithm computation of the threshold is done based on the validation set. A optimal threshold can be selected if the it is computed based on abnormal data. A trained auto-encoder will predict the unseen normal data with small reconstruction error as the distribution of samples is similar. When it predict anomalous data the reconstruction error is high. Thus reconstruction error acts a aid to catch the rare events. 
     Figure \ref{ne11} shows the architecture of autoencoder model used. 
    
-   \begin{figure}[h]
-   	\centering
-   	\includegraphics[width=0.49\linewidth]{images/aaut.png}
-   	\caption{Autoencoder architecture for anomaly detection }
-   	\label{ne11}
-   \end{figure}
+  
   
    \section{Transfer learning with raw signal data}
 There are very few open source resources trained model which has similar data structure to the complex industrial dataset used for this project. As discussed in the state of art the most popularly used transfer learning model for time series data is CNNs. Many variations of the this model can be found. The model which is used deep convolution network trained with data shown in figure \ref{ne1}. This architecture is chosen based from the paper \cite{fawaz2018transfer}
@@ -73,12 +68,7 @@ There are very few open source resources trained model which has similar data st
   	\label{n01}
   \end{figure}
    
-   \begin{figure}[h]
-     	\centering
-     	\includegraphics[width=0.49\linewidth]{images/cnna.png}
-     	\caption{CNN architecture for transfer learning }
-     	\label{ne1}
-     \end{figure}
+  
      
    The steps that are followed for use of transfer learning using the above model from raw time series data are as follows:
    \begin{enumerate} 
@@ -112,13 +102,24 @@ There are very few open source resources trained model which has similar data st
   
   
   \section{Autoencoder as feature extractor}  
-     \begin{figure}[h]
-     	\centering
-     	\includegraphics[width=0.35\linewidth]{images/encoder.png}
-     	\caption{Encoder architecture }
-     	\label{ne1}
-     \end{figure}
+  
      
+   Auto-encoder are popularly used in computer vision algorithms as feature extractor of images. Many models have been successfully implemented in this field. Here through this implementation similar approach is being experimented with spectrogram as input. This method might be useful to extract some consized features from the image data as using the them directly will increase the training complexity and time.  
    
+   The implementation details are as follows:
+   \begin{enumerate}
+   	\item First simple preprocessing is done by scaling the image data and converted to numpy array. 
+   	\item Then the data is trained on to the auto-encoder by minimizing the reconstruction error.
+   	\item Features for training and test are extracted from the encoder predictions.
+   	\item Further this features are used as input to a simple convolution network with the aim of classification. 
+   \end{enumerate}
+   
+      \begin{figure}[h]
+      	\centering
+      	\includegraphics[width=1\linewidth]{images/ee.png}
+      	\caption{Pip-line of implementation of autoencoder as feature extractor }
+      	\label{ne11}
+      \end{figure}
+      
 
 \end{document}
